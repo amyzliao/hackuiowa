@@ -1,35 +1,45 @@
 import React from "react";
+import { fakeusers } from '../utils/dummydata'
 
-const GroupList = () => {
+const User = ({ user }) => {
+    // console.log(user)
     return (
-        <div>
-            <div className="collapse bg-base-200">
-                <input type="radio" name="my-accordion-1" checked="checked" />
-                <div className="collapse-title text-xl font-medium">
-                    Click to open this one and close others
-                </div>
-                <div className="collapse-content">
-                    <p>hello</p>
-                </div>
+        <p>{user.name}</p>
+    )
+}
+
+const Group = ({ group }) => {
+    // console.log(fakeusers[0].id)
+    // find users by id
+    let usersInfo = []
+    group.users.map((user) => (
+        // console.log(user)
+        // console.log('fish')
+        // console.log(fakeusers[user.id])
+        usersInfo.push(fakeusers[user])
+    ))
+    // console.log(usersInfo)
+    return (
+        <div className="collapse collapse-arrow bg-base-200">
+            <input type="radio" name="my-accordion-2" checked="checked" />
+            <div className="collapse-title text-xl font-medium">
+                {group.name}
             </div>
-            <div className="collapse bg-base-200">
-                <input type="radio" name="my-accordion-1" />
-                <div className="collapse-title text-xl font-medium">
-                    Click to open this one and close others
-                </div>
-                <div className="collapse-content">
-                    <p>hello</p>
-                </div>
+            <div className="collapse-content">
+                {usersInfo.map((user) => (
+                    <User key={user.id} user={user} />
+                ))}
             </div>
-            <div className="collapse bg-base-200">
-                <input type="radio" name="my-accordion-1" />
-                <div className="collapse-title text-xl font-medium">
-                    Click to open this one and close others
-                </div>
-                <div className="collapse-content">
-                    <p>hello</p>
-                </div>
-            </div>
+        </div>
+    )
+}
+
+const GroupList = ({ groups }) => {
+    return (
+        <div class='space-y-4'>
+            {groups.map((group) => (
+                <Group key={group.id} group={group} />
+            ))}
         </div>
     )
 }

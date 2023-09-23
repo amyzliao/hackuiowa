@@ -4,52 +4,16 @@ import GroupList from '../components/grouplist'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main data-theme='emerald'>
       <h1>When To Schmeet</h1>
-      <div>
-            <div className="collapse bg-base-200">
-                <input type="radio" name="my-accordion-1" checked="checked" />
-                <div className="collapse-title text-xl font-medium">
-                    Click to open this one and close others
-                </div>
-                <div className="collapse-content">
-                    <p>hello</p>
-                </div>
-            </div>
-            <div className="collapse bg-base-200">
-                <input type="radio" name="my-accordion-1" />
-                <div className="collapse-title text-xl font-medium">
-                    Click to open this one and close others
-                </div>
-                <div className="collapse-content">
-                    <p>hello</p>
-                </div>
-            </div>
-            <div className="collapse bg-base-200">
-                <input type="radio" name="my-accordion-1" />
-                <div className="collapse-title text-xl font-medium">
-                    Click to open this one and close others
-                </div>
-                <div className="collapse-content">
-                    <p>hello</p>
-                </div>
-            </div>
+      <div class='grid grid-cols-4 gap-10 mt-20 mx-10'>
+        <div class='col-span-1'>
+          <GroupList groups={fakegroups} />
+          {/* <div class='border-white border-2 h-full'>fish</div> */}
         </div>
-      <GroupList/>
-      <div class='w-3/4 border-2 border-solid border-white'>
-        <h4>Groups:</h4>
-
-        {fakegroups.map((group) => (
-          <h6 key={group.id}>{group.id} {group.name} {group.users}</h6>
-        ))}
-      </div>
-
-      <div class='w-3/4 border-2 border-solid border-white'>
-        <h5>Users:</h5>
-
-        {fakeusers.map((user) => (
-          <h6 key={user.id}>{user.id} {user.name} {user.email}</h6>
-        ))}
+        <div class='col-span-3'>
+          <div class='border-white border-2 h-screen'>fish</div>
+        </div>
       </div>
 
     </main>
