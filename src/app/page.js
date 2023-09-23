@@ -9,12 +9,12 @@ export default function Home() {
         <h4>Groups:</h4>
 
         {fakegroups.map((group) => (
-          <h6>{group.id} {group.name} {group.users}</h6>
+          <h6 key={group.id}>{group.id} {group.name} {group.users}</h6>
         ))}
       </div>
 
       <div class='w-3/4 border-2 border-solid border-white'>
-        <h5>Users:</h5>
+        <h5 key={group.id}>Users:</h5>
 
         {fakeusers.map((user) => (
           <h6>{user.id} {user.name} {user.email}</h6>
