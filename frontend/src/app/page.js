@@ -24,8 +24,8 @@ export default function Home() {
   nextWeek.setDate(today.getDate() + 7);
   const [startDate, setStartDate] = useState(today);
   const [endDate, setEndDate] = useState(nextWeek);
-  const [startHour, setStartHour] = useState(0);
-  const [endHour, setEndHour] = useState(23);
+  const [startHour, setStartHour] = useState(9);
+  const [endHour, setEndHour] = useState(17);
   const [dayLabels, setDayLabels] = useState([]);
   const [hours, setHours] = useState([]);
 
@@ -60,14 +60,27 @@ export default function Home() {
       currentDate.setDate(currentDate.getDate() + 1);
     }
     setDayLabels(dayLabelsCopy);
-    setHours(Array.from({ length: 24 }, (_, index) => index).slice(
-      startHour,
-      endHour + 1
-    ));
+    
+    let currentHour = startHour
+    let hoursCopy = []
+    while (currentHour <= endHour) {
+      hoursCopy.push(currentHour)
+      hoursCopy.push(currentHour + 0.25)
+      hoursCopy.push(currentHour + 0.5)
+      hoursCopy.push(currentHour + 0.75)
+      currentHour += 1
+    }
+    // hoursCopy.push(endHour)
+    setHours(hoursCopy)
+    console.log('hoursCopy', hoursCopy)
+    // setHours(Array.from({ length: 24 }, (_, index) => index).slice(
+    //   startHour,
+    //   endHour + 1
+    // ));
   }, [startDate, endDate, startHour, endHour]);
 
   return (
-    <main data-theme='emerald' className='bg-base-200 w-screen h-screen'>
+    <main data-theme='emerald' className='bg-base-200 w-screen min-h-screen h-max'>
       <NavBar />
       {/* <div class='mx-10'>
         
@@ -77,7 +90,7 @@ export default function Home() {
           <GroupList groups={fakegroups} />
           {/* <div class='border-white border-2 h-full'>fish</div> */}
         </div>
-        <div class='col-span-2'>
+        <div class='col-span-2 pb-20'>
           {/* <div class='border-white border-2 h-screen'>fish</div> */}
           <Table dayLabels={dayLabels} hours={hours} />
         </div>
