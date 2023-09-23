@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import InputBoxes from "./inputboxes";
+import Table from "./table";
 
 class WeekCalendar extends React.Component {
   constructor(props) {
@@ -62,71 +64,18 @@ class WeekCalendar extends React.Component {
 
     return (
       <div className="p-10">
-        <div className="flex mb-4 space-x-4">
-          <div className="flex-1">
-            <label className="block mb-1">Start Date:</label>
-            <input
-              type="date"
-              value={startDate.toISOString().split("T")[0]}
-              onChange={this.handleStartDateChange}
-              className="input input-bordered w-auto max-w-xs"
-            />
-          </div>
-          <div className="flex-1">
-            <label className="block mb-1">End Date:</label>
-            <input
-              type="date"
-              value={endDate.toISOString().split("T")[0]}
-              onChange={this.handleEndDateChange}
-              className="input input-bordered w-auto max-w-xs"
-            />
-          </div>
-          <div className="flex-1">
-            <label className="block mb-1">Start Hour:</label>
-            <input
-              type="number"
-              value={startHour}
-              min={0}
-              max={23}
-              onChange={this.handleStartHourChange}
-              className="input input-bordered w-auto max-w-xs"
-            />
-          </div>
-          <div className="flex-1">
-            <label className="block mb-1">End Hour:</label>
-            <input
-              type="number"
-              value={endHour}
-              min={0}
-              max={23}
-              onChange={this.handleEndHourChange}
-              className="input input-bordered w-auto max-w-xs"
-            />
-          </div>
-        </div>
+        <InputBoxes
+          startDate={startDate}
+          endDate={endDate}
+          startHour={startHour}
+          endHour={endHour}
+          handleStartDateChange={this.handleStartDateChange}
+          handleEndDateChange={this.handleEndDateChange}
+          handleStartHourChange={this.handleStartHourChange}
+          handleEndHourChange={this.handleEndHourChange}
+        />
 
-        <table className="w-full border">
-          <thead>
-            <tr>
-              <th className="border p-2"></th>
-              {dayLabels.map((label, index) => (
-                <th key={index} className="border p-2">
-                  {`${label.name} (${label.day})`}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {hours.map((hour) => (
-              <tr key={hour}>
-                <td className="border p-2">{hour}:00</td>
-                {dayLabels.map((_, index) => (
-                  <td key={index} className="border p-2"></td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Table dayLabels={dayLabels} hours={hours} />
       </div>
     );
   }
