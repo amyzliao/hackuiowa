@@ -62,14 +62,14 @@ class WeekCalendar extends React.Component {
 
     return (
       <div className="p-10">
-        <div className="mb-4 flex space-x-4">
+        <div className="flex mb-4 space-x-4">
           <div className="flex-1">
             <label className="block mb-1">Start Date:</label>
             <input
               type="date"
               value={startDate.toISOString().split("T")[0]}
               onChange={this.handleStartDateChange}
-              className="border p-2 w-32"
+              className="input input-bordered w-auto max-w-xs"
             />
           </div>
           <div className="flex-1">
@@ -78,12 +78,9 @@ class WeekCalendar extends React.Component {
               type="date"
               value={endDate.toISOString().split("T")[0]}
               onChange={this.handleEndDateChange}
-              className="border p-2 w-32"
+              className="input input-bordered w-auto max-w-xs"
             />
           </div>
-        </div>
-
-        <div className="mb-4 flex space-x-4">
           <div className="flex-1">
             <label className="block mb-1">Start Hour:</label>
             <input
@@ -92,7 +89,7 @@ class WeekCalendar extends React.Component {
               min={0}
               max={23}
               onChange={this.handleStartHourChange}
-              className="border p-2 w-16"
+              className="input input-bordered w-auto max-w-xs"
             />
           </div>
           <div className="flex-1">
@@ -103,7 +100,7 @@ class WeekCalendar extends React.Component {
               min={0}
               max={23}
               onChange={this.handleEndHourChange}
-              className="border p-2 w-16"
+              className="input input-bordered w-auto max-w-xs"
             />
           </div>
         </div>
