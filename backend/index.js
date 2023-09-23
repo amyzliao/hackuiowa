@@ -28,22 +28,14 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 
-
-app.get('/', (req, res) => {
-  res.send('Hello, Express!');
-});
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-// const docRef = db.collection('users').doc('alovelace');
-
-// docRef.set({
-//   first: 'Ada',
-//   last: 'Lovelace',
-//   born: 1815
-// });
+app.get('/get-groups', (req, res) => {
+  let body = req.body;
+  res.send(body["user_id"]);
+});
 
 const fs = require('fs').promises;
 const path = require('path');
