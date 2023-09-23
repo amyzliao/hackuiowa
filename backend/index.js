@@ -1,16 +1,49 @@
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+const { initializeApp, credential, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
+const proc = require('process');
+const express = require('express');
+const app = express();
+const port = proc.env.PORT || 3000; // Use the port defined by the environment or 3000 by default
 
-const app = initializeApp();
-const db = getFirestore(app);
+// Middleware to parse JSON request bodies
+app.use(express.json());
 
-const docRef = db.collection('users').doc('alovelace');
+// Middleware to parse URL-encoded request bodies
+app.use(express.urlencoded({ extended: false }));
 
-docRef.set({
-  first: 'Ada',
-  last: 'Lovelace',
-  born: 1815
+// const serviceAccount = require('/Users/zhao/Downloads/serviceAccountKey.json');
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCru_23cWy3h_0xtwjuTFvEfAq22xAJMzI",
+  authDomain: "whentoschmeet.firebaseapp.com",
+  projectId: "whentoschmeet",
+  storageBucket: "whentoschmeet.appspot.com",
+  messagingSenderId: "109657703445",
+  appId: "1:109657703445:web:c3139a524d4bc31e06ba1c",
+  measurementId: "G-NPSTH1Y3K4"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
+
+
+app.get('/', (req, res) => {
+  res.send('Hello, Express!');
 });
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+// const docRef = db.collection('users').doc('alovelace');
+
+// docRef.set({
+//   first: 'Ada',
+//   last: 'Lovelace',
+//   born: 1815
+// });
 
 const fs = require('fs').promises;
 const path = require('path');
