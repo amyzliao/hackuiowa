@@ -1,12 +1,10 @@
 import React from "react";
-import { fakeusers } from '../utils/dummydata'
+import { fakeusers } from "../utils/dummydata";
 
 const User = ({ user }) => {
-    // console.log(user)
-    return (
-        <p>{user.name}</p>
-    )
-}
+  // console.log(user)
+  return <p>{user.name}</p>;
+};
 
 const Group = ({ group }) => {
     // console.log(fakeusers[0].id)
@@ -35,13 +33,13 @@ const Group = ({ group }) => {
 }
 
 const GroupList = ({ groups }) => {
-    return (
-        <div class='space-y-4'>
-            {groups.map((group) => (
-                <Group key={group.id} group={group} />
-            ))}
-        </div>
-    )
-}
+  return (
+    <div class="space-y-4">
+      {groups.map((group) => (
+        <Group key={group.id} group={group} />
+      ))}
+    </div>
+  );
+};
 
-export default GroupList
+export default GroupList;
