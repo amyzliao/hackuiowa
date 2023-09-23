@@ -18,7 +18,7 @@ const Group = ({ group }) => {
     ))
     // console.log(usersInfo)
     return (
-        <div className="collapse collapse-arrow bg-neutral text-white">
+        <div className="collapse collapse-arrow bg-neutral hover:bg-neutral-focus text-white">
             <input type="radio" name="my-accordion-2" checked="checked" />
             <div className="collapse-title text-xl font-medium">
                 {group.name}
