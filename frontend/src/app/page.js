@@ -7,6 +7,9 @@ export default function Home() {
   return (
     <main data-theme='emerald'>
       <NavBar />
+      {/* <div class='mx-10'>
+        
+      </div> */}
       <div class='grid grid-cols-4 gap-10 mt-20 mx-10'>
         <div class='col-span-1'>
           <GroupList groups={fakegroups} />
