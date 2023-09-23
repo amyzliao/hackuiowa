@@ -61,7 +61,7 @@ class WeekCalendar extends React.Component {
     );
 
     return (
-      <div className="p-10">
+      <div>
         <div className="flex mb-4 space-x-4">
           <div className="flex-1">
             <label className="block mb-1">Start Date:</label>
