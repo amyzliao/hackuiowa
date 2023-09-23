@@ -15,7 +15,7 @@ class InputBoxes extends React.Component {
     } = this.props;
 
     return (
-      <div className="flex mb-4 space-x-4">
+      <div className="flex flex-col gap-5">
         <div className="flex-1">
           <label className="block mb-1">Start Date:</label>
           <input
