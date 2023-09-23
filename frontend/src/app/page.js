@@ -14,10 +14,10 @@ export default function Home() {
       </div>
 
       <div class='w-3/4 border-2 border-solid border-white'>
-        <h5 key={group.id}>Users:</h5>
+        <h5>Users:</h5>
 
         {fakeusers.map((user) => (
-          <h6>{user.id} {user.name} {user.email}</h6>
+          <h6 key={user.id}>{user.id} {user.name} {user.email}</h6>
         ))}
       </div>
 
