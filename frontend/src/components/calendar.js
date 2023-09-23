@@ -37,13 +37,13 @@ class WeekCalendar extends React.Component {
     const { startDate, endDate, startHour, endHour } = this.state;
 
     const daysOfWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
+      "SUN",
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
     ];
 
     const dayLabels = [];
