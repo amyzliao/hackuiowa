@@ -1,3 +1,17 @@
+const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
+
+const app = initializeApp();
+const db = getFirestore(app);
+
+const docRef = db.collection('users').doc('alovelace');
+
+docRef.set({
+  first: 'Ada',
+  last: 'Lovelace',
+  born: 1815
+});
+
 const fs = require('fs').promises;
 const path = require('path');
 const process = require('process');
@@ -86,7 +100,10 @@ async function listEvents(auth) {
   console.log('Upcoming 10 events:');
   events.map((event, i) => {
     const start = event.start.dateTime || event.start.date;
-    console.log(`${start} - ${event.summary}`);
+    const end = event.end.dateTime || event.end.date;
+    console.log("start " + start);
+    console.log("end " + end);
+    // console.log(`${start} - ${event.summary}`);
   });
 }
 
