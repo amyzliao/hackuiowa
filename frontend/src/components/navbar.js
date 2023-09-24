@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-200 text-sm">
       <div className="navbar-start pl-10 ">
-        <a className=" text-sm  ">whentoschmeet</a>
+        <a className=" text-4xl ">whentoschmeet</a>
       </div>
 
       <div className="navbar-end pr-10 py-2">
