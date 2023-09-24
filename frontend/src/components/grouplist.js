@@ -6,7 +6,7 @@ const User = ({ user }) => {
   return <p>{user.name}</p>;
 };
 
-const Group = ({ group }) => {
+const Group = ({ group, setGroup }) => {
     // console.log(fakeusers[0].id)
     // find users by id
     let usersInfo = []
@@ -18,8 +18,8 @@ const Group = ({ group }) => {
     ))
     // console.log(usersInfo)
     return (
-        <div className="collapse collapse-arrow bg-neutral hover:bg-neutral-focus text-white">
-            <input type="radio" name="my-accordion-2" checked="checked" />
+        <div key={group.id} className="collapse collapse-arrow bg-neutral hover:bg-neutral-focus text-white">
+            <input type="radio" name="my-accordion-2" onClick={() => setGroup(group.id)}/>
             <div className="collapse-title text-xl font-medium">
                 {group.name}
             </div>
@@ -32,11 +32,11 @@ const Group = ({ group }) => {
     )
 }
 
-const GroupList = ({ groups }) => {
+const GroupList = ({ groups, setGroup }) => {
   return (
     <div class="space-y-4">
       {groups.map((group) => (
-        <Group key={group.id} group={group} />
+        <Group key={group.id} group={group} setGroup={setGroup} />
       ))}
     </div>
   );

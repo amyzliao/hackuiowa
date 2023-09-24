@@ -9,7 +9,9 @@ const NavBar = () => {
       </div>
 
       <div className="navbar-end pr-10">
+      
         <a className="btn mx-50px bg-accent hover:bg-accent-focus">Register/Login</a>
+        
       </div>
     </div>
   );

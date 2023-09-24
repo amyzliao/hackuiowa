@@ -24,27 +24,29 @@ export default function Home() {
   nextWeek.setDate(today.getDate() + 7);
   const [startDate, setStartDate] = useState(today);
   const [endDate, setEndDate] = useState(nextWeek);
-  const [startHour, setStartHour] = useState(9);
-  const [endHour, setEndHour] = useState(17);
+  const [startHour, setStartHour] = useState(900);
+  const [endHour, setEndHour] = useState(1700);
   const [dayLabels, setDayLabels] = useState([]);
   const [hours, setHours] = useState([]);
+  const [table, setTable] = useState([]);
+  const [group, setGroup] = useState();
 
-  function handleStartDateChange (event) {
+  function handleStartDateChange(event) {
     setStartDate(new Date(event.target.value))
     // this.setState({ startDate: new Date(event.target.value) });
   };
 
-  function handleEndDateChange (event) {
+  function handleEndDateChange(event) {
     setEndDate(new Date(event.target.value))
     // this.setState({ endDate: new Date(event.target.value) });
   };
 
-  function handleStartHourChange (event) {
+  function handleStartHourChange(event) {
     setStartHour(parseInt(event.target.value, 10))
     // this.setState({ startHour: parseInt(event.target.value, 10) });
   };
 
-  function handleEndHourChange (event) {
+  function handleEndHourChange(event) {
     setEndHour(parseInt(event.target.value, 10))
     // this.setState({ endHour: parseInt(event.target.value, 10) });
   };
@@ -60,15 +62,15 @@ export default function Home() {
       currentDate.setDate(currentDate.getDate() + 1);
     }
     setDayLabels(dayLabelsCopy);
-    
+
     let currentHour = startHour
     let hoursCopy = []
     while (currentHour <= endHour) {
       hoursCopy.push(currentHour)
-      hoursCopy.push(currentHour + 0.25)
-      hoursCopy.push(currentHour + 0.5)
-      hoursCopy.push(currentHour + 0.75)
-      currentHour += 1
+      hoursCopy.push(currentHour + 25)
+      hoursCopy.push(currentHour + 50)
+      hoursCopy.push(currentHour + 75)
+      currentHour += 100
     }
     // hoursCopy.push(endHour)
     setHours(hoursCopy)
@@ -79,20 +81,89 @@ export default function Home() {
     // ));
   }, [startDate, endDate, startHour, endHour]);
 
+  // useEffect(() => {
+  //   var myGrid = [...Array(hours.length)].map(e => Array(dayLabels.length));
+  //   setTable(myGrid)
+  // }, [hours, dayLabels])
+
+  useEffect(() => {
+    // API call here
+    // get the users informations
+    console.log('group', group)
+    if (group || group === 0) {
+      let allBusies = []
+      fakegroups[group].users.map((userID) => (
+        allBusies.push(fakeusers[userID].busy)
+      ))
+      console.log(allBusies)
+      populateTable(allBusies);
+    }
+  }, [group])
+
+  function populateTable(allBusies) {
+    // allBusies is an array of busy objs
+    let tmpTable = [...Array(hours.length)].map(e => Array(dayLabels.length).fill(0));
+    console.log('initial tmp table', tmpTable)
+    // console.log('attay 0', Array(5).fill(0))
+    // let tmpTable = [...Array(hours.length)].map(e => Array(dayLabels.length)); // array of cols
+    // for each array of busy objs
+    for (let i = 0; i < allBusies.length; i++) {
+      // allBusies[i] // an array of busy objs
+      allBusies[i].map((dateTimeObj, idx) => {
+        const col = idx
+        //dateTimeObj.times // an array of time ranges
+        dateTimeObj.times.map((range) => {
+          // fix start
+          if (range[0] % 100 === 15) {
+            range[0] += 10 //25
+          } else if (range[0] % 100 === 30) {
+            range[0] += 20 // 50
+          } else if (range[0] % 100 === 45) {
+            range[0] += 30 // 75
+          }
+          // fix end
+          if (range[1] % 100 === 15) {
+            range[1] += 10  //25
+          } else if (range[1] % 100 === 30) {
+            range[1] += 20 // 50
+          } else if (range[1] % 100 === 45) {
+            range[1] += 30  // 75
+          }
+          // increment table buckets
+          for (let j = range[0]; j < Math.min(range[1], endHour); j += 25) {
+            if (j < startHour) {
+              continue;
+            }
+            // console.log('j', j)
+            // console.log('startHour', startHour)
+            const row = (j - startHour) / 25
+            // console.log('group', group)
+            // console.log('row', row)
+            // console.log('tmptable length', tmpTable.length)
+            tmpTable[row][col] += 1
+          }
+        })
+      })
+    }
+    console.log('after changes', tmpTable);
+    // update state
+    setTable(tmpTable);
+  };
+
   return (
     <main data-theme='emerald' className='bg-base-200 w-screen min-h-screen h-max'>
       <NavBar />
       {/* <div class='mx-10'>
         
       </div> */}
-      <div class='grid grid-cols-4 gap-10 mt-5 mx-10'>
+      <div class='grid grid-cols-4 gap-8 mt-5 mx-10'>
         <div class='col-span-1'>
-          <GroupList groups={fakegroups} />
+          <GroupList groups={fakegroups} setGroup={setGroup} />
           {/* <div class='border-white border-2 h-full'>fish</div> */}
         </div>
         <div class='col-span-2 pb-20'>
           {/* <div class='border-white border-2 h-screen'>fish</div> */}
-          <Table dayLabels={dayLabels} hours={hours} />
+          <Table dayLabels={dayLabels} hours={hours} table={table} />
         </div>
         <div class='col-span-1'>
           {/* <WeekCalendar /> */}
