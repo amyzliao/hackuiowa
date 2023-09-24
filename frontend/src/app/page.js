@@ -4,7 +4,7 @@ import { fakegroups, fakeusers } from "../utils/dummydata";
 import GroupList from "../components/grouplist";
 import NavBar from "../components/navbar";
 import WeekCalendar from "../components/calendar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Table from "../components/table";
 import InputBoxes from "@/components/inputboxes";
 import AddEventPopup from "@/components/addEvent";
@@ -19,30 +19,56 @@ export default function Home() {
   const [startDate, setStartDate] = useState(today);
   const [endDate, setEndDate] = useState(nextWeek);
   const [startHour, setStartHour] = useState(900);
+  const [startHourAmPm, setStartHourAmPm] = useState('AM');
+  const [endHourAmPm, setEndHourAmPm] = useState('PM');
+
   const [endHour, setEndHour] = useState(1700);
   const [dayLabels, setDayLabels] = useState([]);
   const [hours, setHours] = useState([]);
   const [table, setTable] = useState([]);
   const [group, setGroup] = useState();
+  const [loading, setLoading] = useState();
+
+  const [firstRender, setFirstRender] = useState(true);
+
 
   function handleStartDateChange(event) {
-    setStartDate(new Date(event.target.value));
+    setLoading(true);
+    setStartDate(new Date(event.target.value))
     // this.setState({ startDate: new Date(event.target.value) });
   }
 
   function handleEndDateChange(event) {
-    setEndDate(new Date(event.target.value));
+    setLoading(true);
+    setEndDate(new Date(event.target.value))
     // this.setState({ endDate: new Date(event.target.value) });
   }
 
   function handleStartHourChange(event) {
-    setStartHour(parseInt(event.target.value, 10));
+    setLoading(true);
+    if (startHourAmPm === 'AM') {
+      setStartHour(parseInt(event.target.value, 10) * 100)
+    } else {
+      setStartHour((parseInt(event.target.value, 10) + 12) * 100)
+    }
+    // setStartHour(parseInt(event.target.value, 10))
     // this.setState({ startHour: parseInt(event.target.value, 10) });
   }
 
   function handleEndHourChange(event) {
-    setEndHour(parseInt(event.target.value, 10));
+    setLoading(true);
+    if (endHourAmPm === 'AM') {
+      setEndHour(parseInt(event.target.value, 10) * 100)
+    } else {
+      setEndHour((parseInt(event.target.value, 10) + 12) * 100)
+    }
+    // setEndHour(parseInt(event.target.value, 10))
     // this.setState({ endHour: parseInt(event.target.value, 10) });
+  }
+
+  function handleGroupChange(groupID) {
+    setGroup(groupID);
+    setLoading(true);
   }
 
   useEffect(() => {
@@ -50,8 +76,8 @@ export default function Home() {
     // console.warn('start date type', typeof(startDate))
     // console.warn('start date string', startDate.toString())
     // console.warn('end date string', endDate.toString())
-
-    const dayLabelsCopy = [];
+    // setLoading(true);
+    const dayLabelsCopy = []
     const currentDate = new Date(startDate);
     while (currentDate <= endDate) {
       dayLabelsCopy.push({
@@ -61,9 +87,12 @@ export default function Home() {
       currentDate.setDate(currentDate.getDate() + 1);
     }
     setDayLabels(dayLabelsCopy);
+  }, [startDate, endDate]);
 
-    let currentHour = startHour;
-    let hoursCopy = [];
+  useEffect(() => {
+    // setLoading(true);
+    let currentHour = startHour
+    let hoursCopy = []
     while (currentHour <= endHour) {
       hoursCopy.push(currentHour);
       hoursCopy.push(currentHour + 25);
@@ -72,13 +101,14 @@ export default function Home() {
       currentHour += 100;
     }
     // hoursCopy.push(endHour)
-    setHours(hoursCopy);
-    console.log("hoursCopy", hoursCopy);
+    setHours(hoursCopy)
+    console.warn('changing hours')
+    console.log('hoursCopy', hoursCopy)
     // setHours(Array.from({ length: 24 }, (_, index) => index).slice(
     //   startHour,
     //   endHour + 1
     // ));
-  }, [startDate, endDate, startHour, endHour]);
+  }, [startHour, endHour]);
 
   // useEffect(() => {
   //   var myGrid = [...Array(hours.length)].map(e => Array(dayLabels.length));
@@ -86,27 +116,67 @@ export default function Home() {
   // }, [hours, dayLabels])
 
   useEffect(() => {
+    // setLoading(true);
     // get the users informations
-    console.log("group", group);
+    console.warn('group, hours, or daylabels change')
     if (group || group === 0) {
-      // API call here
-      let allBusies = [];
-      fakegroups[group].users.map((userID) =>
+      console.log('pizza')
+      // API call here  
+      let allBusies = []
+      fakegroups[group].users.map((userID) => (
         allBusies.push(fakeusers[userID].busy)
-      );
+      ));
       console.log(allBusies);
       populateTable(allBusies);
     }
-  }, [group]);
+  }, [group, hours, dayLabels])
+
+  useEffect(() => {
+    console.log('changed start hour', startHour)
+  }, [startHour])
+
+  useEffect(() => {
+    console.log('changed end hour', endHour)
+  }, [endHour])
+
+  useEffect(() => {
+    if (firstRender) {
+      console.log('first render', firstRender)
+      setFirstRender(false)
+      return;
+    }
+    if (startHourAmPm === 'AM') {
+      // switched to AM
+      console.log('switched to am')
+      setStartHour(startHour - 1200)
+    } else {
+      // switched to PM
+      console.log('switched to pm')
+      setStartHour(startHour + 1200)
+    }
+  }, [startHourAmPm])
+
+  useEffect(() => {
+    if (firstRender) {
+      console.log('first render', firstRender)
+      setFirstRender(false)
+      return;
+    }
+    if (endHourAmPm === 'AM') {
+      // switched to AM
+      console.log('switched to am')
+      setStartHour(endHour - 1200)
+    } else {
+      // switched to PM
+      console.log('switched to pm')
+      setStartHour(endHour + 1200)
+    }
+  }, [endHourAmPm])
 
   function populateTable(allBusies) {
     // allBusies is an array of busy objs
-    let tmpTable = [...Array(hours.length)].map((e) =>
-      Array(dayLabels.length).fill(0)
-    );
-    console.log("initial tmp table", tmpTable);
-    // console.log('attay 0', Array(5).fill(0))
-    // let tmpTable = [...Array(hours.length)].map(e => Array(dayLabels.length)); // array of cols
+    let tmpTable = [...Array(hours.length)].map(e => Array(dayLabels.length).fill(0));
+    console.log('initial tmp table', tmpTable)
     // for each array of busy objs
     for (let i = 0; i < allBusies.length; i++) {
       // allBusies[i] // an array of busy objs
@@ -135,21 +205,29 @@ export default function Home() {
             if (j < startHour) {
               continue;
             }
+            const row = (j - startHour) / 25
             // console.log('j', j)
             // console.log('startHour', startHour)
-            const row = (j - startHour) / 25;
-            // console.log('group', group)
+            // console.log('hours lenth', hours.length)
             // console.log('row', row)
             // console.log('tmptable length', tmpTable.length)
-            tmpTable[row][col] += 1;
+            // console.log('col', col)
+            // console.log('num cols', dayLabels.length)
+            // console.log('row tabe', tmpTable[row])
+            // console.log('row col tabe', tmpTable[row][col])
+            tmpTable[row][col] += 1
           }
         });
       });
     }
-    console.log("after changes", tmpTable);
+    console.warn('after changes', tmpTable);
     // update state
     setTable(tmpTable);
   }
+
+  useEffect(() => {
+    setLoading(false);
+  }, [table]);
 
   return (
     <main
@@ -161,14 +239,13 @@ export default function Home() {
         
       </div> */}
       {/* <TestColumn/> */}
-      <div class="grid grid-cols-4 gap-8 mt-5 mx-10">
-        <div class="col-span-1">
-          <GroupList groups={fakegroups} setGroup={setGroup} />
+      <div class='grid grid-cols-4 gap-8 mt-5 mx-10'>
+        <div class='col-span-1'>
+          <GroupList groups={fakegroups} setGroup={handleGroupChange} />
           {/* <div class='border-white border-2 h-full'>fish</div> */}
         </div>
-        <div class="col-span-2 pb-20">
-          {/* <div class='border-white border-2 h-screen'>fish</div> */}
-          <Table dayLabels={dayLabels} hours={hours} table={table} />
+        <div class='col-span-2 pb-20'>
+          {loading ? <div>Loading</div> : <Table dayLabels={dayLabels} hours={hours} table={table} />}
         </div>
         <div class="col-span-1">
           {/* <WeekCalendar /> */}
@@ -181,6 +258,10 @@ export default function Home() {
             handleEndDateChange={handleEndDateChange}
             handleStartHourChange={handleStartHourChange}
             handleEndHourChange={handleEndHourChange}
+            startHourAmPm={startHourAmPm}
+            endHourAmPm={endHourAmPm}
+            setStartHourAmPm={setStartHourAmPm}
+            setEndHourAmPm={setEndHourAmPm}
           />
         </div>
       </div>
