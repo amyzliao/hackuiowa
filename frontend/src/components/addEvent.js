@@ -10,7 +10,7 @@ class AddEventPopup extends React.Component {
       : "";
 
     return (
-      <details className="collapse collapse-arrow bg-slate-700 text-xs text-white flex flex-col">
+      <details className="collapse collapse-arrow bg-slate-700 text-xs text-white flex flex-col mt-5">
         <summary className="collapse-title">Add event</summary>
 
         <div className="flex flex-col mb-4 px-4">
