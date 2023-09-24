@@ -2,6 +2,8 @@
 import React from "react";
 
 const Table = ({ dayLabels, hours, table }) => {
+  console.log(hours)
+  console.log(table)
   // empty table initially
   if (table.length === 0) {
     return (
@@ -69,6 +71,10 @@ const Table = ({ dayLabels, hours, table }) => {
                   : <td className="pr-2 text-right text-xxs">.</td>}
                 {dayLabels.map((_, jdx) => {
                   const col = jdx
+                  // console.log('row', row)
+                  // console.log('maxrows', table.length)
+                  // console.log('hours length', hours.length)
+                  // console.log('table row', table[row])
                   // console.log('table', table[row][col])
                   const darkness = table[row][col]*2 / 10
                   // console.log('darkness', darkness)
