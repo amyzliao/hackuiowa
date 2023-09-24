@@ -18,7 +18,7 @@ class AddEventPopup extends React.Component {
           <input
             type="date"
             value={formattedEventDate}
-            className="input input-sm text-sm input-bordered w-auto max-w-xs"
+            className="input input-sm text-sm input-bordered w-auto max-w-xs text-black"
           />
         </div>
 
@@ -27,7 +27,7 @@ class AddEventPopup extends React.Component {
           <input
             type="time"
             value={eventTime || ""}
-            className="input input-sm input-bordered w-auto max-w-xs"
+            className="input input-sm input-bordered w-auto max-w-xs text-black"
           />
         </div>
 
@@ -36,7 +36,7 @@ class AddEventPopup extends React.Component {
           <input
             type="text"
             value={eventName || ""}
-            className="input input-sm input-bordered w-auto max-w-xs"
+            className="input input-sm input-bordered w-auto max-w-xs text-black"
           />
         </div>
         <button className="btn btn-neutral bg-gray-600">Add event</button>

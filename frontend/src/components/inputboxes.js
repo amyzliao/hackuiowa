@@ -103,7 +103,7 @@ class InputBoxes extends React.Component {
           {endHourAmPm === "AM" ? (
             <div className="join pl-5">
               <input
-                className="join-item btn bg-primary"
+                className="join-item btn btn-sm bg-primary"
                 type="radio"
                 name="options"
                 aria-label="AM"
