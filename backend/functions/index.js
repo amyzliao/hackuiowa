@@ -74,14 +74,14 @@ app.options("*", cors({
   allowedHeaders: 'Content-Type'
 }));
 
-app.get('/get-groups', (req, res) => {
+app.get('/get-groups', async (req, res) => {
   let body = req.body;
 
-//   const data = {
-//     "name": "bye",
-//   }
+  const data = {
+    "name": "bye",
+  }
 
-//   const success = await db.collection("users").add(data);
+  const success = await db.collection("users").add(data);
   res.send(body["user_id"]);
 });
 

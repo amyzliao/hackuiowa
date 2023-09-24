@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import AddEventPopup from "@/components/addEvent";
 
 class InputBoxes extends React.Component {
   render() {
@@ -22,26 +23,26 @@ class InputBoxes extends React.Component {
     const displayEndTime = endHour <= 1200 ? endHour/100 : (endHour-1200)/100
 
     return (
-      <div className="flex flex-col gap-5">
-        <div className="flex-1">
+      <div className="flex flex-col gap-2">
+        <div className="flex-1 font-sm ">
           <label className="block mb-1">Start Date:</label>
           <input
             type="date"
             value={startDate.toISOString().split("T")[0]}
             onChange={handleStartDateChange}
-            className="input input-bordered w-auto max-w-xs"
+            className="input input-sm input-bordered w-auto max-w-xs"
           />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 font-sm ">
           <label className="block mb-1">End Date:</label>
           <input
             type="date"
             value={endDate.toISOString().split("T")[0]}
             onChange={handleEndDateChange}
-            className="input input-bordered w-auto max-w-xs"
+            className="input input-sm input-bordered w-auto max-w-xs"
           />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 font-sm ">
           <label className="block mb-1">Start Hour:</label>
           <input
             type="number"
@@ -87,15 +88,15 @@ class InputBoxes extends React.Component {
           }
 
         </div>
-        <div className="flex-1">
-          <label className="block mb-1">End Hour:</label>
+        <div className="flex-1 font-sm ">
+          <label className="block mb-1 ">End Hour:</label>
           <input
             type="number"
             value={displayEndTime}
             min={0}
             max={23}
             onChange={handleEndHourChange}
-            className="input input-bordered w-auto max-w-xs"
+            className="input input-sm input-bordered w-auto "
           />
           {endHourAmPm === 'AM'
             ? <div className="join pl-5">
@@ -133,7 +134,8 @@ class InputBoxes extends React.Component {
           }
 
         </div>
-        <button className="btn btn-neutral">Add event</button>
+        {/* <button className="btn btn-neutral">Add event</button> */}
+        <AddEventPopup />
       </div>
     );
   }

@@ -7,17 +7,10 @@ import WeekCalendar from "../components/calendar";
 import { useState, useEffect, useRef } from "react";
 import Table from "../components/table";
 import InputBoxes from "@/components/inputboxes";
-import TestColumn from "@/components/testColumns";
+import AddEventPopup from "@/components/addEvent";
+//import TestColumn from "@/components/testColumns";
 
-const daysOfWeek = [
-  "SUN",
-  "MON",
-  "TUE",
-  "WED",
-  "THU",
-  "FRI",
-  "SAT",
-];
+const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 export default function Home() {
   const today = new Date();
@@ -43,13 +36,13 @@ export default function Home() {
     setLoading(true);
     setStartDate(new Date(event.target.value))
     // this.setState({ startDate: new Date(event.target.value) });
-  };
+  }
 
   function handleEndDateChange(event) {
     setLoading(true);
     setEndDate(new Date(event.target.value))
     // this.setState({ endDate: new Date(event.target.value) });
-  };
+  }
 
   function handleStartHourChange(event) {
     setLoading(true);
@@ -60,7 +53,7 @@ export default function Home() {
     }
     // setStartHour(parseInt(event.target.value, 10))
     // this.setState({ startHour: parseInt(event.target.value, 10) });
-  };
+  }
 
   function handleEndHourChange(event) {
     setLoading(true);
@@ -71,7 +64,7 @@ export default function Home() {
     }
     // setEndHour(parseInt(event.target.value, 10))
     // this.setState({ endHour: parseInt(event.target.value, 10) });
-  };
+  }
 
   function handleGroupChange(groupID) {
     setGroup(groupID);
@@ -101,11 +94,11 @@ export default function Home() {
     let currentHour = startHour
     let hoursCopy = []
     while (currentHour <= endHour) {
-      hoursCopy.push(currentHour)
-      hoursCopy.push(currentHour + 25)
-      hoursCopy.push(currentHour + 50)
-      hoursCopy.push(currentHour + 75)
-      currentHour += 100
+      hoursCopy.push(currentHour);
+      hoursCopy.push(currentHour + 25);
+      hoursCopy.push(currentHour + 50);
+      hoursCopy.push(currentHour + 75);
+      currentHour += 100;
     }
     // hoursCopy.push(endHour)
     setHours(hoursCopy)
@@ -132,8 +125,8 @@ export default function Home() {
       let allBusies = []
       fakegroups[group].users.map((userID) => (
         allBusies.push(fakeusers[userID].busy)
-      ))
-      console.log(allBusies)
+      );
+      console.log(allBusies);
       populateTable(allBusies);
     }
   }, [group, hours, dayLabels])
@@ -188,24 +181,24 @@ export default function Home() {
     for (let i = 0; i < allBusies.length; i++) {
       // allBusies[i] // an array of busy objs
       allBusies[i].map((dateTimeObj, idx) => {
-        const col = idx
+        const col = idx;
         //dateTimeObj.times // an array of time ranges
         dateTimeObj.times.map((range) => {
           // fix start
           if (range[0] % 100 === 15) {
-            range[0] += 10 //25
+            range[0] += 10; //25
           } else if (range[0] % 100 === 30) {
-            range[0] += 20 // 50
+            range[0] += 20; // 50
           } else if (range[0] % 100 === 45) {
-            range[0] += 30 // 75
+            range[0] += 30; // 75
           }
           // fix end
           if (range[1] % 100 === 15) {
-            range[1] += 10  //25
+            range[1] += 10; //25
           } else if (range[1] % 100 === 30) {
-            range[1] += 20 // 50
+            range[1] += 20; // 50
           } else if (range[1] % 100 === 45) {
-            range[1] += 30  // 75
+            range[1] += 30; // 75
           }
           // increment table buckets
           for (let j = range[0]; j < Math.min(range[1], endHour); j += 25) {
@@ -224,20 +217,23 @@ export default function Home() {
             // console.log('row col tabe', tmpTable[row][col])
             tmpTable[row][col] += 1
           }
-        })
-      })
+        });
+      });
     }
     console.warn('after changes', tmpTable);
     // update state
     setTable(tmpTable);
-  };
+  }
 
   useEffect(() => {
     setLoading(false);
   }, [table]);
 
   return (
-    <main data-theme='emerald' className='bg-base-200 w-screen min-h-screen h-max'>
+    <main
+      data-theme="emerald"
+      className="bg-base-200 w-screen min-h-screen h-max"
+    >
       <NavBar />
       {/* <div class='mx-10'>
         
@@ -251,7 +247,7 @@ export default function Home() {
         <div class='col-span-2 pb-20'>
           {loading ? <div>Loading</div> : <Table dayLabels={dayLabels} hours={hours} table={table} />}
         </div>
-        <div class='col-span-1'>
+        <div class="col-span-1">
           {/* <WeekCalendar /> */}
           <InputBoxes
             startDate={startDate}
