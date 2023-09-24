@@ -112,11 +112,6 @@ export default function Home() {
     // ));
   }, [startHour, endHour]);
 
-  // useEffect(() => {
-  //   var myGrid = [...Array(hours.length)].map(e => Array(dayLabels.length));
-  //   setTable(myGrid)
-  // }, [hours, dayLabels])
-
   useEffect(() => {
     // setLoading(true);
     // get the users informations
@@ -125,9 +120,9 @@ export default function Home() {
       console.log('pizza')
       // API call here  
       let allBusies = []
-      fakegroups[group].users.map((userID) => (
+      fakegroups[group].users.map((userID) => {
         allBusies.push(fakeusers[userID].busy)
-      ));
+      });
       console.log(allBusies);
       populateTable(allBusies);
     }
