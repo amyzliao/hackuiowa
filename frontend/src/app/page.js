@@ -67,8 +67,10 @@ export default function Home() {
   }
 
   function handleGroupChange(groupID) {
-    setGroup(groupID);
-    setLoading(true);
+    if (groupID !== group) {
+      setGroup(groupID);
+      setLoading(true);
+    }
   }
 
   useEffect(() => {
@@ -247,7 +249,7 @@ export default function Home() {
         <div class='col-span-2 pb-20'>
           {loading ? <div>Loading</div> : <Table dayLabels={dayLabels} hours={hours} table={table} />}
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1 pl-5">
           {/* <WeekCalendar /> */}
           <InputBoxes
             startDate={startDate}
