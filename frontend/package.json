@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@air/react-drag-to-select": "^5.0.8",
     "@google-cloud/local-auth": "^2.1.0",
     "autoprefixer": "10.4.16",
+    "dragselect": "^2.7.4",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.2",
     "googleapis": "^105.0.0",

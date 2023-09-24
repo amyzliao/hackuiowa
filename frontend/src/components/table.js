@@ -5,7 +5,9 @@ const Table = ({ dayLabels, hours, table }) => {
   // empty table initially
   if (table.length === 0) {
     return (
+      
       <table className="w-full text-sm">
+        {/* row of days of the week and dates */}
         <thead>
           <tr>
             <th class='w-16'></th>
@@ -16,16 +18,19 @@ const Table = ({ dayLabels, hours, table }) => {
             ))}
           </tr>
         </thead>
+        {/* other rows */}
         <tbody>
           {hours.map((hour, idx) => {
             // const row = idx
             return (
               <tr key={hour} class='h-1'>
+                {/* first col: times */}
                 {hour % 100 === 0
                   ? hour <= 1200
                     ? <td className="pr-2 text-right text-xxs w-max">{hour / 100} AM</td>
                     : <td className="pr-2 text-right text-xxs w-max">{hour / 100 - 12} PM</td>
                   : <td className="pr-2 text-right text-xxs">.</td>}
+                {/* other cols: for displaying business */}
                 {dayLabels.map((_, jdx) => {
                   // const col = jdx
                   // const darkness = table[row][col] * 100

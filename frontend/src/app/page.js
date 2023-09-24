@@ -7,6 +7,7 @@ import WeekCalendar from "../components/calendar";
 import { useState, useEffect } from "react";
 import Table from "../components/table";
 import InputBoxes from "@/components/inputboxes";
+import TestColumn from "@/components/testColumns";
 
 const daysOfWeek = [
   "SUN",
@@ -52,6 +53,11 @@ export default function Home() {
   };
 
   useEffect(() => {
+    // console.warn('start date', startDate)
+    // console.warn('start date type', typeof(startDate))
+    // console.warn('start date string', startDate.toString())
+    // console.warn('end date string', endDate.toString())
+
     const dayLabelsCopy = []
     const currentDate = new Date(startDate);
     while (currentDate <= endDate) {
@@ -86,11 +92,11 @@ export default function Home() {
   //   setTable(myGrid)
   // }, [hours, dayLabels])
 
-  useEffect(() => {
-    // API call here
+  useEffect(() => {    
     // get the users informations
     console.log('group', group)
     if (group || group === 0) {
+      // API call here  
       let allBusies = []
       fakegroups[group].users.map((userID) => (
         allBusies.push(fakeusers[userID].busy)
@@ -156,6 +162,7 @@ export default function Home() {
       {/* <div class='mx-10'>
         
       </div> */}
+      {/* <TestColumn/> */}
       <div class='grid grid-cols-4 gap-8 mt-5 mx-10'>
         <div class='col-span-1'>
           <GroupList groups={fakegroups} setGroup={setGroup} />
