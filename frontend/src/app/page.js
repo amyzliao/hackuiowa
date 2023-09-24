@@ -172,7 +172,7 @@ export default function Home() {
 
   function populateTable(allBusies) {
     // allBusies is an array of busy objs
-    let tmpTable = [...Array(hours.length)].map(e => Array(dayLabels.length).fill(0));
+    let tmpTable = [...Array(hours.length)].map((e, idx) => { Array(dayLabels.length).fill(0)} );
     console.log('initial tmp table', tmpTable)
     // for each array of busy objs
     for (let i = 0; i < allBusies.length; i++) {
@@ -180,7 +180,7 @@ export default function Home() {
       allBusies[i].map((dateTimeObj, idx) => {
         const col = idx;
         //dateTimeObj.times // an array of time ranges
-        dateTimeObj.times.map((range) => {
+        dateTimeObj.times.map((range, idx) => {
           // fix start
           if (range[0] % 100 === 15) {
             range[0] += 10; //25
