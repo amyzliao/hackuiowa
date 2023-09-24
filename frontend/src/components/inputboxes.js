@@ -16,11 +16,13 @@ class InputBoxes extends React.Component {
       startHourAmPm,
       endHourAmPm,
       setStartHourAmPm,
-      setEndHourAmPm
+      setEndHourAmPm,
     } = this.props;
 
-    const displayStartTime = startHour <= 1200 ? startHour/100 : (startHour-1200)/100
-    const displayEndTime = endHour <= 1200 ? endHour/100 : (endHour-1200)/100
+    const displayStartTime =
+      startHour <= 1200 ? startHour / 100 : (startHour - 1200) / 100;
+    const displayEndTime =
+      endHour <= 1200 ? endHour / 100 : (endHour - 1200) / 100;
 
     return (
       <div className="flex flex-col gap-2">
@@ -50,43 +52,43 @@ class InputBoxes extends React.Component {
             min={0}
             max={23}
             onChange={handleStartHourChange}
-            className="input input-bordered max-w-xs"
+            className="input input-sm input-bordered max-w-xs"
           />
-          {startHourAmPm === 'AM'
-            ? <div className="join pl-5">
+          {startHourAmPm === "AM" ? (
+            <div className="join pl-5 ">
               <input
-                className="join-item btn bg-primary"
+                className="join-item btn btn-sm bg-primary"
                 type="radio"
                 name="options"
                 aria-label="AM"
-                onClick={() => setStartHourAmPm('AM')}
+                onClick={() => setStartHourAmPm("AM")}
               />
               <input
-                className="join-item btn bg-white"
+                className="join-item btn btn-sm bg-white"
                 type="radio"
                 name="options"
                 aria-label="PM"
-                onClick={() => setStartHourAmPm('PM')}
+                onClick={() => setStartHourAmPm("PM")}
               />
             </div>
-            : <div className="join pl-5">
+          ) : (
+            <div className="join pl-5">
               <input
-                className="join-item btn bg-white"
+                className="join-item btn btn-sm bg-white"
                 type="radio"
                 name="options"
                 aria-label="AM"
-                onClick={() => setStartHourAmPm('AM')}
+                onClick={() => setStartHourAmPm("AM")}
               />
               <input
-                className="join-item btn bg-primary"
+                className="join-item btn btn-sm bg-primary"
                 type="radio"
                 name="options"
                 aria-label="PM"
-                onClick={() => setStartHourAmPm('PM')}
+                onClick={() => setStartHourAmPm("PM")}
               />
             </div>
-          }
-
+          )}
         </div>
         <div className="flex-1 font-sm ">
           <label className="block mb-1 ">End Hour:</label>
@@ -98,41 +100,41 @@ class InputBoxes extends React.Component {
             onChange={handleEndHourChange}
             className="input input-sm input-bordered w-auto "
           />
-          {endHourAmPm === 'AM'
-            ? <div className="join pl-5">
+          {endHourAmPm === "AM" ? (
+            <div className="join pl-5">
               <input
                 className="join-item btn bg-primary"
                 type="radio"
                 name="options"
                 aria-label="AM"
-                onClick={() => setEndHourAmPm('AM')}
+                onClick={() => setEndHourAmPm("AM")}
               />
               <input
-                className="join-item btn bg-white"
+                className="join-item btn btn-sm bg-white"
                 type="radio"
                 name="options"
                 aria-label="PM"
-                onClick={() => setEndHourAmPm('PM')}
+                onClick={() => setEndHourAmPm("PM")}
               />
             </div>
-            : <div className="join pl-5">
+          ) : (
+            <div className="join pl-5">
               <input
-                className="join-item btn bg-white"
+                className="join-item btn btn-sm bg-white"
                 type="radio"
                 name="options"
                 aria-label="AM"
-                onClick={() => setEndHourAmPm('AM')}
+                onClick={() => setEndHourAmPm("AM")}
               />
               <input
-                className="join-item btn bg-primary"
+                className="join-item btn btn-sm bg-primary"
                 type="radio"
                 name="options"
                 aria-label="PM"
-                onClick={() => setEndHourAmPm('PM')}
+                onClick={() => setEndHourAmPm("PM")}
               />
             </div>
-          }
-
+          )}
         </div>
         {/* <button className="btn btn-neutral">Add event</button> */}
         <AddEventPopup />
