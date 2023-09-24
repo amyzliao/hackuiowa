@@ -44,6 +44,20 @@ class InputBoxes extends React.Component {
             onChange={handleStartHourChange}
             className="input input-bordered w-auto max-w-xs"
           />
+          <div className="join pl-5">
+            <input
+              className="join-item btn"
+              type="radio"
+              name="options"
+              aria-label="AM"
+            />
+            <input
+              className="join-item btn"
+              type="radio"
+              name="options"
+              aria-label="PM"
+            />
+          </div>
         </div>
         <div className="flex-1">
           <label className="block mb-1">End Hour:</label>
@@ -55,7 +69,22 @@ class InputBoxes extends React.Component {
             onChange={handleEndHourChange}
             className="input input-bordered w-auto max-w-xs"
           />
+          <div className="join pl-5">
+            <input
+              className="join-item btn checked:bg-orange-400"
+              type="radio"
+              name="options"
+              aria-label="AM"
+            />
+            <input
+              className="join-item btn checked:bg-blue-950"
+              type="radio"
+              name="options"
+              aria-label="PM"
+            />
+          </div>
         </div>
+        <button className="btn btn-neutral">Add event</button>
       </div>
     );
   }
