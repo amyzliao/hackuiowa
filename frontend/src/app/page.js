@@ -125,7 +125,7 @@ export default function Home() {
       let allBusies = []
       fakegroups[group].users.map((userID) => (
         allBusies.push(fakeusers[userID].busy)
-      );
+      ));
       console.log(allBusies);
       populateTable(allBusies);
     }
